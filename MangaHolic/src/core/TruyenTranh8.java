@@ -83,8 +83,36 @@ public class TruyenTranh8 implements MangeGetter {
     private ArrayList<String> parseAuthor(Element authorElement) {
         ArrayList<String> authorList = new ArrayList<>();
         Elements rawAuthorList = authorElement.getElementsByTag("span");
-        System.out.println(rawAuthorList);
+        for(Element author : rawAuthorList) {
+            authorList.add(author.html());
+        }
         return authorList;
+    }
+
+    private ArrayList<String> parseTag(Element tagElement) {
+        ArrayList<String> tagList = new ArrayList<>();
+        Elements rawTagList = tagElement.getElementsByTag("a");
+        for(Element tag : rawTagList) {
+            tagList.add(tag.html());
+        }
+        return tagList;
+    }
+
+    private double parseRating(Element ratingElement) {
+        String ratingStr = ratingElement.select("[itemprop=\"ratingValue\"]").html();
+        double rating = 0.0;
+        try {
+            rating = Double.parseDouble(ratingStr);
+        } catch (NumberFormatException e) {
+            System.err.println("Invalid rating format");
+        }
+        return rating;
+    }
+
+    private String parseStatus(Element statusElement) {
+        String statusStr = statusElement.select("a").html();
+        System.out.println(statusStr);
+        return statusStr;
     }
 
     @Override
@@ -111,12 +139,10 @@ public class TruyenTranh8 implements MangeGetter {
 
         manga = new Manga(mangaName, url);
 
-        String ratingStr = info.first().html();
-        String authorStr = info.get(4).html();
-        String tagStr = info.get(5).html();
-        String statusStr = info.get(6).html();
-        System.out.println(mangaName);
-//        parseAuthor(info.get(4));
+        manga.setRating(parseRating(info.first()));
+        manga.setAuthors(parseAuthor(info.get(4)));
+        manga.setTags(parseTag(info.get(5)));
+        manga.setStatus(parseStatus(info.get(6)));
 
         return manga;
     }
