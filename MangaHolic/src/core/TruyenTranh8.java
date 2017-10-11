@@ -24,8 +24,8 @@ public class TruyenTranh8 implements MangeGetter {
     }
 
     /**
-     * Prevent do this at much as possible
-     * Due to getting data from internet
+     * Prevent to call this at much as possible
+     * Due to getting data from internet may slowing down the application performance
      * @return list of manga
      */
     @Override
@@ -128,7 +128,7 @@ public class TruyenTranh8 implements MangeGetter {
             e.printStackTrace();
         }
 
-        // page is error
+        // page is error or blocked
         if (doc == null)
             return null;
 

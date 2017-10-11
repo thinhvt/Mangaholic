@@ -8,8 +8,10 @@ public class Manga {
     private String url;
     private double rating;
     private String status;
+    private String mangaThumbnail;
     private List<String> authors;
     private List<String> tags;
+    private List<Chapter> chapters;
 
     public Manga() {
         this("", "");
@@ -22,6 +24,7 @@ public class Manga {
         tags = new ArrayList<>();
         rating = 0;
         status = "Empty";
+        mangaThumbnail = "";
     }
 
     public String getName() {
