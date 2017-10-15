@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/fb1" android:duration="30" />
+    <item android:drawable="@drawable/fb2" android:duration="30" />
+    <item android:drawable="@drawable/fb3" android:duration="30" />
+    <item android:drawable="@drawable/fb4" android:duration="30" />
+    <item android:drawable="@drawable/fb5" android:duration="30" />
+    <item android:drawable="@drawable/fb6" android:duration="30" />
+    <item android:drawable="@drawable/fb7" android:duration="30" />
+    <item android:drawable="@drawable/fb8" android:duration="30" />
+    <item android:drawable="@drawable/fb9" android:duration="30" />
+    <item android:drawable="@drawable/fb10" android:duration="30" />
+
+</animation-list>
