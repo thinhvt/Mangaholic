@@ -23,7 +23,7 @@ public class Manga {
         authors = new ArrayList<>();
         tags = new ArrayList<>();
         rating = 0;
-        status = "Empty";
+        status = "Unknown";
         mangaThumbnail = "";
     }
 

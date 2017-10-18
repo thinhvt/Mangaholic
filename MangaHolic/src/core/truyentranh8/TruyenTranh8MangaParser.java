@@ -2,10 +2,16 @@ package core.truyentranh8;
 
 import core.Chapter;
 import core.MangaParser;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TruyenTranh8MangaParser implements MangaParser {
     @Override
@@ -13,7 +19,7 @@ public class TruyenTranh8MangaParser implements MangaParser {
         ArrayList<String> authorList = new ArrayList<>();
         Elements rawAuthorList = authorElement.getElementsByTag("span");
         for(Element author : rawAuthorList) {
-            authorList.add(author.html());
+            authorList.add(Jsoup.parse(author.html()).text());
         }
         return authorList;
     }
@@ -28,13 +34,21 @@ public class TruyenTranh8MangaParser implements MangaParser {
         return tagList;
     }
 
+    private String getChapterName(String rawChapterName) {
+        Pattern p = Pattern.compile("(chap\\s+[0-9]+)");   // the pattern to search for
+        Matcher m = p.matcher(rawChapterName.toLowerCase());
+        if (m.find())
+            return m.group(1);
+        return "";
+    }
+
     @Override
     public ArrayList<Chapter> parseChapter(Element chapterElement) {
         Elements rawChapterList = chapterElement.select("a");
         ArrayList<Chapter> chapterList = new ArrayList<>();
         for(Element chapterInfo : rawChapterList) {
             String chapterUrl = chapterInfo.attr("href");
-            String chapterName = chapterInfo.select("strong").html().trim();
+            String chapterName = getChapterName(chapterInfo.select("h3").html().trim());
             chapterList.add(new Chapter(chapterName, chapterUrl));
         }
         return chapterList;
@@ -45,7 +59,7 @@ public class TruyenTranh8MangaParser implements MangaParser {
         String ratingStr = ratingElement.select("[itemprop=\"ratingValue\"]").html();
         double rating = 0.0;
         try {
-            rating = Double.parseDouble(ratingStr);
+            rating = Double.parseDouble(Jsoup.parse(ratingStr).text()); //remove html character code
         } catch (NumberFormatException e) {
             System.err.println("Invalid rating format");
         }
@@ -55,12 +69,28 @@ public class TruyenTranh8MangaParser implements MangaParser {
     @Override
     public String parseStatus(Element statusElement) {
         String statusStr = statusElement.select("a").html();
-//        System.out.println(statusStr);
-        return statusStr;
+        return Jsoup.parse(statusStr).text(); //remove html character code
     }
 
     @Override
     public String parseThumbnailURL(Element thumbnailElement) {
-        return null;
+        return thumbnailElement.attr("src");
+    }
+
+    @Override
+    public List<String> parseChapterImage(String html) {
+//        final String query = "div[id^='image_']";
+        final String query = "img.lazy";
+        Document doc = null;
+        ArrayList<String> imageList = new ArrayList<>();
+        doc = Jsoup.parse(html);
+
+        if (doc == null)
+            return imageList;
+        Elements imageElementList = doc.select(query);
+        for(Element imageElement : imageElementList) {
+            imageList.add(imageElement.attr("src"));
+        }
+        return imageList;
     }
 }

@@ -9,5 +9,6 @@ public interface MangeGetter {
     List getMangaList();
     Manga getMangaInfo(Manga manga);
     Manga getMangaInfo(String url);
+    List<String> getChapterImageList(String chapterUrl);
 
 }

@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TruyenTranh8 implements MangeGetter {
-    private final static String MANGA_LIST_URL_FORMAT = "http://truyentranh8.net/search.php?act=search&sort=ten&page=%d&view=list";
+    private final static String MANGA_LIST_URL_FORMAT = "http://m.truyentranh8.net/all/page=%d";
 
     @Override
     public List getMangaList(InputStream is) {
@@ -49,8 +49,7 @@ public class TruyenTranh8 implements MangeGetter {
             }
 
             // get row in table
-            Elements mangaList = doc.getElementsByTag("tr");
-
+            Elements mangaList = doc.select("a.post");
             // break if there is no manga found
             if (mangaList.size() == 0) {
                 break;
@@ -58,14 +57,11 @@ public class TruyenTranh8 implements MangeGetter {
 
             // get each manga info in table
             for (Element manga : mangaList) {
-                Elements row = manga.select("td a");
-                Element column = row.first();
-                if (column != null) {
-                    String mangaName = column.html().trim();
-                    if (mangaName.length() == 0) continue;
-                    String mangaUrl = column.attr("href");
-                    mangaListParsed.add(new Manga(mangaName, mangaUrl));
-                }
+                String mangaName = manga.select("div.title").first().html().trim();
+                mangaName = Jsoup.parse(mangaName).text();
+                if (mangaName.length() == 0) continue;
+                String mangaUrl = manga.attr("href");
+                mangaListParsed.add(new Manga(mangaName, mangaUrl));
             }
             i++;
             break; // debug
@@ -100,23 +96,19 @@ public class TruyenTranh8 implements MangeGetter {
         if (doc == null)
             return null;
 
-        Element mangaInfo = doc.select(".mangainfo").first();
-        Element chapterList = doc.select("ul#ChapList").first();
-        Element thumbnail = doc.select("img.center-block.thumbnail.img-responsive").first();
+        Element mangaInfo = doc.select(".MangaInfo").first();
+        Element chapterList = doc.select("ol").first();
+        Element thumbnail = doc.select("img.centered.img-responsive").first();
         Elements info = mangaInfo.getElementsByTag("li");
-        String mangaName = doc.select(".TitleH2").first().html();
+        String mangaName = mangaInfo.select("h1").first().html();
 
         manga = defaultManga(mangaName, url);
-
+        manga.setRating(parser.parseRating(mangaInfo));
         for(Element e : info) {
             Element eleSection = e.select("b").first();
             if (eleSection != null) {
                 String section = eleSection.html();
                 switch (section.toLowerCase()) {
-                    case "đánh giá:": {
-                        manga.setRating(parser.parseRating(e));
-                        break;
-                    }
                     case "tác giả:": {
                         manga.setAuthors(parser.parseAuthor(e));
                         break;
@@ -133,20 +125,19 @@ public class TruyenTranh8 implements MangeGetter {
         }
 
         manga.setChapters(parser.parseChapter(chapterList));
-        manga.setMangaThumbnail(thumbnail.attr("src"));
+        manga.setMangaThumbnail(parser.parseThumbnailURL(thumbnail));
         return manga;
+    }
+
+    @Override
+    public List<String> getChapterImageList(String html) {
+        TruyenTranh8MangaParser parser = new TruyenTranh8MangaParser();
+        return parser.parseChapterImage(html);
     }
 
     //default manga. Prevent some case that manga doesn't have enough information
     private Manga defaultManga(String name, String url) {
         Manga manga = new Manga(name, url);
-        manga.setRating(0.0);
-        manga.setStatus("Unknown");
-        manga.setTags(new ArrayList<>());
-        manga.setChapters(new ArrayList<>());
-        manga.setAuthors(new ArrayList<>());
-        manga.setMangaThumbnail("");
-
         return manga;
     }
 }
