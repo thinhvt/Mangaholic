@@ -1,5 +1,7 @@
-package core;
+package core.truyentranh8;
 
+import core.Manga;
+import core.MangeGetter;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -59,7 +61,8 @@ public class TruyenTranh8 implements MangeGetter {
                 Elements row = manga.select("td a");
                 Element column = row.first();
                 if (column != null) {
-                    String mangaName = column.html();
+                    String mangaName = column.html().trim();
+                    if (mangaName.length() == 0) continue;
                     String mangaUrl = column.attr("href");
                     mangaListParsed.add(new Manga(mangaName, mangaUrl));
                 }
@@ -80,46 +83,11 @@ public class TruyenTranh8 implements MangeGetter {
         return newManga;
     }
 
-    private ArrayList<String> parseAuthor(Element authorElement) {
-        ArrayList<String> authorList = new ArrayList<>();
-        Elements rawAuthorList = authorElement.getElementsByTag("span");
-        for(Element author : rawAuthorList) {
-            authorList.add(author.html());
-        }
-        return authorList;
-    }
-
-    private ArrayList<String> parseTag(Element tagElement) {
-        ArrayList<String> tagList = new ArrayList<>();
-        Elements rawTagList = tagElement.getElementsByTag("a");
-        for(Element tag : rawTagList) {
-            tagList.add(tag.html());
-        }
-        return tagList;
-    }
-
-    private double parseRating(Element ratingElement) {
-        String ratingStr = ratingElement.select("[itemprop=\"ratingValue\"]").html();
-        double rating = 0.0;
-        try {
-            rating = Double.parseDouble(ratingStr);
-        } catch (NumberFormatException e) {
-            System.err.println("Invalid rating format");
-        }
-        return rating;
-    }
-
-    private String parseStatus(Element statusElement) {
-        String statusStr = statusElement.select("a").html();
-        System.out.println(statusStr);
-        return statusStr;
-    }
-
     @Override
-    public Manga getMangaInfo(String url) {
+    public Manga getMangaInfo(String url) throws NullPointerException {
         Document doc = null;
         Manga manga;
-        url = "http://truyentranh8.net/bungaku-shoujo-to-shi-ni-tagari-no-douke/";
+        TruyenTranh8MangaParser parser = new TruyenTranh8MangaParser();
 
         // try to connect to website
         try {
@@ -133,16 +101,51 @@ public class TruyenTranh8 implements MangeGetter {
             return null;
 
         Element mangaInfo = doc.select(".mangainfo").first();
+        Element chapterList = doc.select("ul#ChapList").first();
+        Element thumbnail = doc.select("img.center-block.thumbnail.img-responsive").first();
         Elements info = mangaInfo.getElementsByTag("li");
-
         String mangaName = doc.select(".TitleH2").first().html();
 
-        manga = new Manga(mangaName, url);
+        manga = defaultManga(mangaName, url);
 
-        manga.setRating(parseRating(info.first()));
-        manga.setAuthors(parseAuthor(info.get(4)));
-        manga.setTags(parseTag(info.get(5)));
-        manga.setStatus(parseStatus(info.get(6)));
+        for(Element e : info) {
+            Element eleSection = e.select("b").first();
+            if (eleSection != null) {
+                String section = eleSection.html();
+                switch (section.toLowerCase()) {
+                    case "đánh giá:": {
+                        manga.setRating(parser.parseRating(e));
+                        break;
+                    }
+                    case "tác giả:": {
+                        manga.setAuthors(parser.parseAuthor(e));
+                        break;
+                    }
+                    case "thể loại:": {
+                        manga.setTags(parser.parseTag(e));
+                        break;
+                    }
+                    case "tình trạng:": {
+                        manga.setStatus(parser.parseStatus(e));
+                    }
+                } // end switch
+            } // end if
+        }
+
+        manga.setChapters(parser.parseChapter(chapterList));
+        manga.setMangaThumbnail(thumbnail.attr("src"));
+        return manga;
+    }
+
+    //default manga. Prevent some case that manga doesn't have enough information
+    private Manga defaultManga(String name, String url) {
+        Manga manga = new Manga(name, url);
+        manga.setRating(0.0);
+        manga.setStatus("Unknown");
+        manga.setTags(new ArrayList<>());
+        manga.setChapters(new ArrayList<>());
+        manga.setAuthors(new ArrayList<>());
+        manga.setMangaThumbnail("");
 
         return manga;
     }
