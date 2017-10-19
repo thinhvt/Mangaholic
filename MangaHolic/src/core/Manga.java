@@ -23,7 +23,7 @@ public class Manga {
         authors = new ArrayList<>();
         tags = new ArrayList<>();
         rating = 0;
-        status = "Empty";
+        status = "Unknown";
         mangaThumbnail = "";
     }
 
@@ -73,5 +73,35 @@ public class Manga {
 
     public void setTags(List<String> tags) {
         this.tags = tags;
+    }
+
+    public String getMangaThumbnail() {
+        return mangaThumbnail;
+    }
+
+    public void setMangaThumbnail(String mangaThumbnail) {
+        this.mangaThumbnail = mangaThumbnail;
+    }
+
+    public List<Chapter> getChapters() {
+        return chapters;
+    }
+
+    public void setChapters(List<Chapter> chapters) {
+        this.chapters = chapters;
+    }
+
+    @Override
+    public String toString() {
+        return "Manga{" +
+                "name='" + name + '\'' +
+                ", url='" + url + '\'' +
+                ", rating=" + rating +
+                ", status='" + status + '\'' +
+                ", mangaThumbnail='" + mangaThumbnail + '\'' +
+                ", authors=" + authors +
+                ", tags=" + tags +
+                ", chapters=" + chapters +
+                '}';
     }
 }
