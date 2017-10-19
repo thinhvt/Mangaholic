@@ -14,6 +14,7 @@ import java.util.List;
 
 public class TruyenTranh8 implements MangeGetter {
     private final static String MANGA_LIST_URL_FORMAT = "http://m.truyentranh8.net/all/page=%d";
+    public final static String TRUYEN_TRANH_8_HOT = "http://m.truyentranh8.net/truyen_xem_nhieu/";
 
     @Override
     public List getMangaList(InputStream is) {
@@ -21,7 +22,40 @@ public class TruyenTranh8 implements MangeGetter {
     }
 
     @Override
-    public List getMangaList(String filename) {
+    public List getMangaList(String url) {
+        Document doc;
+        ArrayList mangaListParsed = new ArrayList();
+        System.out.println("Fetching manga from TruyenTranh8");
+
+        // try to connect to website
+        try {
+            doc = Jsoup.connect(url).get();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return mangaListParsed;
+        }
+
+        // get row in table
+        Elements mangaList = doc.select("a.post");
+        // break if there is no manga found
+        if (mangaList.size() == 0) {
+            return mangaListParsed;
+        }
+
+        // get each manga info in table
+        for (Element manga : mangaList) {
+            String mangaName = manga.select("div.title").first().html().trim();
+            mangaName = Jsoup.parse(mangaName).text();
+            if (mangaName.length() == 0) continue;
+            String mangaUrl = manga.attr("href");
+            mangaListParsed.add(new Manga(mangaName, mangaUrl));
+        }
+        System.out.println(mangaListParsed.size() + " mangas have been fetched");
+        return mangaListParsed;
+    }
+
+    @Override
+    public List getMangaListFromFile(String filename) {
         return null;
     }
 

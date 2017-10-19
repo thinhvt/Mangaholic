@@ -87,6 +87,7 @@ public class Main {
 
     public static void main(String[] args) {
         TruyenTranh8 tt8 = new TruyenTranh8();
-        System.out.println(tt8.getChapterImageList(debugHTML));
+        tt8.getMangaList(TruyenTranh8.TRUYEN_TRANH_8_HOT);
+//        System.out.println(tt8.getChapterImageList(debugHTML));
     }
 }
