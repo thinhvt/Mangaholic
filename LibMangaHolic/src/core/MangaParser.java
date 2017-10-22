@@ -12,5 +12,5 @@ public interface MangaParser {
     double parseRating(Element ratingElement);
     String parseStatus(Element statusElement);
     String parseThumbnailURL(Element thumbnailElement);
-    List<String> parseChapterImage(String url);
+    ArrayList<String> parseChapterImage(String url);
 }

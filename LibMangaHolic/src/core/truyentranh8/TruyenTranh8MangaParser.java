@@ -78,7 +78,7 @@ public class TruyenTranh8MangaParser implements MangaParser {
     }
 
     @Override
-    public List<String> parseChapterImage(String html) {
+    public ArrayList<String> parseChapterImage(String html) {
 //        final String query = "div[id^='image_']";
         final String query = "img.lazy";
         Document doc = null;

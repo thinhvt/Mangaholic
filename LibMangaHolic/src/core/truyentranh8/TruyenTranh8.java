@@ -17,12 +17,12 @@ public class TruyenTranh8 implements MangeGetter {
     public final static String TRUYEN_TRANH_8_HOT = "http://m.truyentranh8.net/truyen_xem_nhieu/";
 
     @Override
-    public List getMangaList(InputStream is) {
+    public ArrayList getMangaList(InputStream is) {
         return null;
     }
 
     @Override
-    public List getMangaList(String url) {
+    public ArrayList getMangaList(String url) {
         Document doc;
         ArrayList mangaListParsed = new ArrayList();
         System.out.println("Fetching: " + url);
@@ -54,18 +54,13 @@ public class TruyenTranh8 implements MangeGetter {
         return mangaListParsed;
     }
 
-    @Override
-    public List getMangaListFromFile(String filename) {
-        return null;
-    }
-
     /**
      * Prevent to call this at much as possible
      * Due to getting data from internet may slowing down the application performance
      * @return list of manga
      */
     @Override
-    public List getMangaList() {
+    public ArrayList getMangaList() {
         Document doc;
         ArrayList mangaListParsed = new ArrayList();
         int i = 1; // first page
@@ -142,7 +137,7 @@ public class TruyenTranh8 implements MangeGetter {
     }
 
     @Override
-    public List<String> getChapterImageList(String html) {
+    public ArrayList<String> getChapterImageList(String html) {
         TruyenTranh8MangaParser parser = new TruyenTranh8MangaParser();
         return parser.parseChapterImage(html);
     }

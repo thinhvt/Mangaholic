@@ -1,15 +1,15 @@
 package core;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 public interface MangeGetter {
-    List getMangaList(InputStream is);
-    List getMangaList(String url);
-    List getMangaListFromFile(String filename);
-    List getMangaList();
+    ArrayList<Manga> getMangaList(InputStream is);
+    ArrayList<Manga> getMangaList(String url);
+    ArrayList<Manga> getMangaList();
     Manga getMangaInfo(Manga manga);
     Manga getMangaInfo(String url);
-    List<String> getChapterImageList(String chapterUrl);
+    ArrayList<String> getChapterImageList(String chapterUrl);
 
 }
