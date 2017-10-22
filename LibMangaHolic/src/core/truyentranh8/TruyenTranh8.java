@@ -25,7 +25,7 @@ public class TruyenTranh8 implements MangeGetter {
     public List getMangaList(String url) {
         Document doc;
         ArrayList mangaListParsed = new ArrayList();
-        System.out.println("Fetching manga from TruyenTranh8");
+        System.out.println("Fetching: " + url);
 
         // try to connect to website
         try {
@@ -69,38 +69,16 @@ public class TruyenTranh8 implements MangeGetter {
         Document doc;
         ArrayList mangaListParsed = new ArrayList();
         int i = 1; // first page
-        System.out.println("Fetching manga from TruyenTranh8");
+        System.out.println("Fetching all manga from TruyenTranh8");
         while(true) {
-            System.out.println("Fetching page " + i);
             String requestUrl = String.format(MANGA_LIST_URL_FORMAT, i);
-
-            // try to connect to website
-            try {
-                doc = Jsoup.connect(requestUrl).get();
-            } catch (IOException e) {
-                e.printStackTrace();
+            List<Manga> mangas = getMangaList(requestUrl);
+            if (mangas.size() == 0)
                 break;
-            }
-
-            // get row in table
-            Elements mangaList = doc.select("a.post");
-            // break if there is no manga found
-            if (mangaList.size() == 0) {
-                break;
-            }
-
-            // get each manga info in table
-            for (Element manga : mangaList) {
-                String mangaName = manga.select("div.title").first().html().trim();
-                mangaName = Jsoup.parse(mangaName).text();
-                if (mangaName.length() == 0) continue;
-                String mangaUrl = manga.attr("href");
-                mangaListParsed.add(new Manga(mangaName, mangaUrl));
-            }
+            mangaListParsed.addAll(mangas);
             i++;
-            break; // debug
         }
-        System.out.println(mangaListParsed.size() + " mangas have been fetched");
+        System.out.println("Total: " + mangaListParsed.size() + " mangas have been fetched");
         return mangaListParsed;
     }
 
