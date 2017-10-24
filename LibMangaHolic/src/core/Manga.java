@@ -8,8 +8,10 @@ public class Manga {
     private String url;
     private double rating;
     private String status;
+    private String mangaThumbnail;
     private List<String> authors;
     private List<String> tags;
+    private List<Chapter> chapters;
 
     public Manga() {
         this("", "");
@@ -21,7 +23,8 @@ public class Manga {
         authors = new ArrayList<>();
         tags = new ArrayList<>();
         rating = 0;
-        status = "Empty";
+        status = "Unknown";
+        mangaThumbnail = "";
     }
 
     public String getName() {
@@ -70,5 +73,35 @@ public class Manga {
 
     public void setTags(List<String> tags) {
         this.tags = tags;
+    }
+
+    public String getMangaThumbnail() {
+        return mangaThumbnail;
+    }
+
+    public void setMangaThumbnail(String mangaThumbnail) {
+        this.mangaThumbnail = mangaThumbnail;
+    }
+
+    public List<Chapter> getChapters() {
+        return chapters;
+    }
+
+    public void setChapters(List<Chapter> chapters) {
+        this.chapters = chapters;
+    }
+
+    @Override
+    public String toString() {
+        return "Manga{" +
+                "name='" + name + '\'' +
+                ", url='" + url + '\'' +
+                ", rating=" + rating +
+                ", status='" + status + '\'' +
+                ", mangaThumbnail='" + mangaThumbnail + '\'' +
+                ", authors=" + authors +
+                ", tags=" + tags +
+                ", chapters=" + chapters +
+                '}';
     }
 }
