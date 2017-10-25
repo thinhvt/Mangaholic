@@ -7,18 +7,31 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class TruyenTranh8 implements MangeGetter {
     private final static String MANGA_LIST_URL_FORMAT = "http://m.truyentranh8.net/all/page=%d";
     public final static String TRUYEN_TRANH_8_HOT = "http://m.truyentranh8.net/truyen_xem_nhieu/";
+    public final static String TRUYEN_TRANH_8_HOME = "http://m.truyentranh8.net";
 
     @Override
     public ArrayList getMangaList(InputStream is) {
-        return null;
+        Scanner sc = new Scanner(is);
+        ArrayList<Manga> mangaList = new ArrayList<>();
+
+        while(sc.hasNextLine()) {
+            String name = sc.nextLine();
+            String url = sc.nextLine();
+            mangaList.add(new Manga(name, url));
+        }
+
+        return mangaList;
     }
 
     @Override
