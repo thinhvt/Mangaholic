@@ -6,6 +6,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import sun.awt.datatransfer.DataTransferer;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -22,13 +23,17 @@ public class TruyenTranh8 implements MangeGetter {
 
     @Override
     public ArrayList getMangaList(InputStream is) {
-        Scanner sc = new Scanner(is);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
         ArrayList<Manga> mangaList = new ArrayList<>();
+        String name, url;
 
-        while(sc.hasNextLine()) {
-            String name = sc.nextLine();
-            String url = sc.nextLine();
-            mangaList.add(new Manga(name, url));
+        try {
+            while ((name = reader.readLine()) != null) {
+                url = reader.readLine();
+                mangaList.add(new Manga(name, url));
+            }
+        } catch(IOException e) {
+            System.err.println("IOException while reading manga list");
         }
 
         return mangaList;
