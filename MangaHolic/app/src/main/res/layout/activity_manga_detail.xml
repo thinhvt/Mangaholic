@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+    android:orientation="vertical"
+        android:layout_height="match_parent"
+    android:background="@drawable/background"
+        tools:context="assignment.mangaholic.MangaDetail">
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar1"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+    >
+        <TextView
+                android:text="Thông tin truyện"
+            android:background="#07000000"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/txtManga" android:layout_marginBottom="10dp"
+
+                android:textSize="20sp" android:paddingBottom="5dp"
+                android:paddingTop="5dp" android:textColor="#f44143" android:paddingLeft="5dp"
+        />
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="190dp" android:layout_marginTop="15dp">
+            <ProgressBar
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/thumbnail_progress_bar" android:layout_weight="0.5"/>
+            <ImageView
+                android:background="#07000000"
+                android:textColor="@color/colorWhite"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" app:srcCompat="@mipmap/ic_launcher" android:id="@+id/thumbnail"
+                    android:layout_weight="0.5"/>
+            <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" android:layout_weight="0.5">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                              android:orientation="vertical">
+                    <ProgressBar
+                            style="?android:attr/progressBarStyle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/manga_info_progress_bar"/>
+                    <TextView
+                        android:background="#07000000"
+                        android:textColor="@color/colorWhite"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" android:id="@+id/txtName"
+                            android:paddingBottom="5dp" android:paddingTop="5dp" android:paddingLeft="5dp"
+                            android:textSize="18sp"/>
+                    <TextView
+                        android:background="#07000000"
+                        android:textColor="@color/colorWhite"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" android:id="@+id/txtRating"
+                            android:paddingBottom="5dp" android:paddingTop="5dp" android:paddingLeft="5dp"
+                            android:textSize="18sp"/>
+                    <TextView
+                        android:background="#07000000"
+                        android:textColor="@color/colorWhite"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" android:id="@+id/txtAuthor"
+                            android:paddingBottom="5dp" android:paddingTop="5dp" android:paddingLeft="5dp"
+                            android:textSize="18sp"/>
+                    <TextView
+                        android:background="#07000000"
+                        android:textColor="@color/colorWhite"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" android:id="@+id/txtTag"
+                            android:paddingBottom="5dp" android:paddingTop="5dp" android:paddingLeft="5dp"
+                            android:textSize="18sp"/>
+                    <TextView
+                        android:background="#07000000"
+                        android:textColor="@color/colorWhite"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" android:id="@+id/txtStatus"
+                            android:paddingBottom="5dp" android:paddingTop="5dp" android:paddingLeft="5dp"
+                            android:textSize="18sp"/>
+                </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
+        <TextView
+                android:text="Chương"
+            android:background="#07000000"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/txtChapter" android:layout_marginBottom="10dp"
+
+                android:textSize="20sp" android:paddingBottom="5dp"
+                android:paddingTop="5dp" android:textColor="#f44143" android:paddingLeft="5dp"
+                android:layout_marginTop="20dp"/>
+        <ProgressBar
+                style="?android:attr/progressBarStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/chapter_progress_bar"/>
+        <ListView
+            android:background="#07000000"
+            android:textColor="@color/colorWhite"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" tools:layout_editor_absoluteY="8dp"
+                tools:layout_editor_absoluteX="8dp" android:layout_marginBottom="15dp" android:id="@+id/chapter_list"
+                android:layout_marginLeft="10dp"/>
+    </LinearLayout>
+</LinearLayout>
