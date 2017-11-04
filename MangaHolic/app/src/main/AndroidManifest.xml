@@ -14,18 +14,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".StartScreen">
+        <activity android:name=".view.StartScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MangaDetail"
+        <activity android:name=".view.MangaDetail"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".ViewManga" />
+        <activity android:name=".view.ViewManga" />
         <activity
-            android:name=".MainScreen"
+            android:name=".view.MainScreen"
             android:label="@string/title_activity_main_screen"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>

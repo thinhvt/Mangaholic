@@ -1,14 +1,17 @@
-package assignment.mangaholic;
+package assignment.mangaholic.view;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import assignment.mangaholic.asyntask.GetMangaDataTask;
+
+import assignment.mangaholic.R;
+import assignment.mangaholic.presenter.asynctasks.GetMangaDataTask;
 
 public class MangaDetail extends AppCompatActivity {
     public static ListView chapterList;
@@ -19,6 +22,7 @@ public class MangaDetail extends AppCompatActivity {
     public static TextView txtStatus;
     public static ImageView thumbnail;
     public static Toolbar toolbar;
+    public static EditText txtSearchChapter;
 
     private static ProgressBar thumbnailPB;
     private static ProgressBar infoPB;
@@ -46,7 +50,6 @@ public class MangaDetail extends AppCompatActivity {
         txtAuthor.setVisibility(View.VISIBLE);
         txtTag.setVisibility(View.VISIBLE);
         txtStatus.setVisibility(View.VISIBLE);
-
     }
 
     public static void showChapterList() {
@@ -72,6 +75,7 @@ public class MangaDetail extends AppCompatActivity {
         chapterPB = (ProgressBar) findViewById(R.id.chapter_progress_bar);
         toolbar = (Toolbar) findViewById(R.id.toolbar1);
         setSupportActionBar(toolbar);
+        txtSearchChapter = (EditText) findViewById(R.id.search_chapter);
     }
 
     @Override

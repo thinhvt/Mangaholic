@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context="assignment.mangaholic.StartScreen">
+    tools:context="assignment.mangaholic.view.StartScreen">
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"

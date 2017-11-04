@@ -1,11 +1,11 @@
-package assignment.mangaholic.asyntask;
+package assignment.mangaholic.presenter.asynctasks;
 
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import assignment.mangaholic.FragmentHome;
-import assignment.mangaholic.listview.MangaList;
+import assignment.mangaholic.view.FragmentHome;
+import assignment.mangaholic.presenter.eventhandlers.MangaList;
 import core.Manga;
 import core.truyentranh8.TruyenTranh8;
 

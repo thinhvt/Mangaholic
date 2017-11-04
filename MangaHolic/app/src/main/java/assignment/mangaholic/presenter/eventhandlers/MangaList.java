@@ -1,19 +1,17 @@
-package assignment.mangaholic.listview;
+package assignment.mangaholic.presenter.eventhandlers;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
-import assignment.mangaholic.MangaDetail;
+import assignment.mangaholic.view.MangaDetail;
 import assignment.mangaholic.R;
 import core.Manga;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MangaList extends BaseAdapter implements Filterable, AdapterView.OnItemClickListener {
     private Context context;

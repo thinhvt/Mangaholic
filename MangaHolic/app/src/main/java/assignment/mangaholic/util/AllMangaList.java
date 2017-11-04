@@ -15,16 +15,20 @@ import java.util.ArrayList;
  */
 public class AllMangaList {
     private static ArrayList<Manga> mangaList = null;
+    private static int status = 0;
 
-    private AllMangaList(Context context) {
-        TruyenTranh8 tt8 = new TruyenTranh8();
-        mangaList = tt8.getMangaList(context.getResources().openRawResource(R.raw.manga_list));
+    private AllMangaList() {}
+
+    public static void updateMangaList(ArrayList<Manga> mangas) {
+        status = 1;
+        mangaList = mangas;
     }
 
-    public static ArrayList<Manga> getAllManga(Context context) {
-        if (mangaList == null) {
-            new AllMangaList(context);
-        }
+    public static int getStatus() {
+        return status;
+    }
+
+    public static ArrayList<Manga> getMangaList() {
         return mangaList;
     }
 }

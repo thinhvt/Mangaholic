@@ -1,22 +1,21 @@
-package assignment.mangaholic.asyntask;
+package assignment.mangaholic.presenter.asynctasks;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.text.Editable;
 import android.text.TextWatcher;
-import assignment.mangaholic.FragmentAllList;
-import assignment.mangaholic.R;
-import assignment.mangaholic.listview.MangaList;
+import android.util.Log;
+import assignment.mangaholic.presenter.eventhandlers.MangaList;
+import assignment.mangaholic.util.AllMangaList;
+import assignment.mangaholic.view.FragmentAllList;
 import core.Manga;
-import core.truyentranh8.TruyenTranh8;
 
 import java.util.ArrayList;
 
-public class LoadAllMangaTask extends AsyncTask<Void, Void, ArrayList<Manga>>{
+public class LoadAllMangaToListViewTask extends AsyncTask<Void, Void, ArrayList<Manga>> {
     private Context context;
 
-    public LoadAllMangaTask(Context context) {
+    public LoadAllMangaToListViewTask(Context context) {
         this.context = context;
     }
 
@@ -28,9 +27,20 @@ public class LoadAllMangaTask extends AsyncTask<Void, Void, ArrayList<Manga>>{
 
     @Override
     protected ArrayList<Manga> doInBackground(Void... voids) {
-        Resources res = context.getResources();
-        ArrayList<Manga> mangaArr = new TruyenTranh8().getMangaList(res.openRawResource(R.raw.manga_list));
-
+        ArrayList<Manga> mangaArr = null;
+        while(true) {
+            Log.i("STATUS", AllMangaList.getStatus() + "");
+            if (AllMangaList.getStatus() == 1) {
+                mangaArr = AllMangaList.getMangaList();
+                break;
+            }
+            // get all manga and return
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
         return mangaArr;
     }
 

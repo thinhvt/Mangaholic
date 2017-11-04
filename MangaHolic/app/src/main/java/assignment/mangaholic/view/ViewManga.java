@@ -1,4 +1,4 @@
-package assignment.mangaholic;
+package assignment.mangaholic.view;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -12,9 +12,10 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import assignment.mangaholic.asyntask.DownloadMangaImageTask;
-import assignment.mangaholic.listview.ChapterList;
-import assignment.mangaholic.listview.ImageList;
+import assignment.mangaholic.R;
+import assignment.mangaholic.presenter.asynctasks.DownloadMangaImageTask;
+import assignment.mangaholic.presenter.eventhandlers.ChapterList;
+import assignment.mangaholic.presenter.eventhandlers.ImageList;
 import core.Chapter;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package assignment.mangaholic.listview;
+package assignment.mangaholic.presenter.eventhandlers;
 
 import android.content.Context;
 import android.graphics.Bitmap;

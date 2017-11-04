@@ -1,11 +1,15 @@
-package assignment.mangaholic;
+package assignment.mangaholic.view;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
-import assignment.mangaholic.asyntask.LoadAllMangaTask;
+
+import assignment.mangaholic.R;
+import assignment.mangaholic.presenter.asynctasks.LoadAllMangaTask;
+import assignment.mangaholic.presenter.asynctasks.LoadAllMangaToListViewTask;
 
 public class FragmentAllList extends android.app.Fragment {
 
@@ -37,7 +41,7 @@ public class FragmentAllList extends android.app.Fragment {
         // Inflate the layout for this fragment
         View fragAllList = inflater.inflate(R.layout.fragment_all_manga_list, container, false);
         initView(fragAllList);
-        (new LoadAllMangaTask(fragAllList.getContext())).execute();
+        (new LoadAllMangaToListViewTask(fragAllList.getContext())).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         return fragAllList;
     }
 }
