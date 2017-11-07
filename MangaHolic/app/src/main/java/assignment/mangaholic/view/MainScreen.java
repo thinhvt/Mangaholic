@@ -83,7 +83,8 @@ public class MainScreen extends AppCompatActivity
         } else if (id == R.id.nav_download) {
             // handle download
         } else if (id == R.id.nav_favorite) {
-            // handle farvorite
+            FragmentFavoriteManga favorite = new FragmentFavoriteManga();
+            transaction.replace(R.id.showFragment, favorite);
         } else if (id == R.id.nav_list_offline) {
             // handle offline list
 

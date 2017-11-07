@@ -58,29 +58,29 @@ public class ViewManga extends AppCompatActivity {
         wb.loadUrl(chapter.getChapterURL());
         Button nextButton = (Button) findViewById(R.id.btNext);
         Button previousButton = (Button) findViewById(R.id.btPrevious);
-        if (indexChapter == 0){
-            nextButton.setVisibility(View.GONE);
+        if (indexChapter == chapterList.size()-1){
+            nextButton.setVisibility(View.INVISIBLE);
         }
         else {
             nextButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent nextChapter = new Intent(getApplicationContext(), ViewManga.class);
-                    nextChapter.putExtra("indexChapter",indexChapter - 1);
+                    nextChapter.putExtra("indexChapter",indexChapter + 1);
                     finish();
                     startActivity(nextChapter);
                 }
             });
         }
-        if (indexChapter == chapterList.size()-1) {
-            previousButton.setVisibility(View.GONE);
+        if (indexChapter == 0) {
+            previousButton.setVisibility(View.INVISIBLE);
         }
         else {
             previousButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent previousChapter = new Intent(getApplicationContext(), ViewManga.class);
-                    previousChapter.putExtra("indexChapter",indexChapter + 1);
+                    previousChapter.putExtra("indexChapter",indexChapter - 1);
                     finish();
                     startActivity(previousChapter);
                 }

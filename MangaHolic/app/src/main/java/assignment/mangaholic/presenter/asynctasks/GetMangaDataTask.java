@@ -5,12 +5,18 @@ import android.os.AsyncTask;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import assignment.mangaholic.R;
+import assignment.mangaholic.model.dbhelper.DatabaseHelper;
+import assignment.mangaholic.model.dbhelper.MangaTable;
 import assignment.mangaholic.presenter.eventhandlers.ChapterList;
 import assignment.mangaholic.presenter.eventhandlers.MangaList;
+import assignment.mangaholic.util.AllMangaList;
 import assignment.mangaholic.view.MangaDetail;
 import assignment.mangaholic.presenter.eventhandlers.ImageList;
 import core.Chapter;
@@ -51,7 +57,7 @@ public class GetMangaDataTask extends AsyncTask<String, Void, Manga> {
     }
 
     @Override
-    protected void onPostExecute(Manga manga) {
+    protected void onPostExecute(final Manga manga) {
         super.onPostExecute(manga);
 
         TextView txtName = MangaDetail.txtName;
@@ -69,6 +75,7 @@ public class GetMangaDataTask extends AsyncTask<String, Void, Manga> {
         TextView txtStatus = MangaDetail.txtStatus;
         android.support.v7.widget.Toolbar toolbar = MangaDetail.toolbar;
         EditText txtSearchChapter = MangaDetail.txtSearchChapter;
+        final ImageButton btnFavorite = MangaDetail.btnFavorite;
 
         // prepare strings
         StringBuilder authos = new StringBuilder("");
@@ -93,6 +100,14 @@ public class GetMangaDataTask extends AsyncTask<String, Void, Manga> {
         txtTag.setText("Thể loại: " + tags);
         txtStatus.setText("Trạng thái: " + manga.getStatus());
         toolbar.setTitle(manga.getName());
+
+        Manga curManga = MangaTable.findCurManga(DatabaseHelper.getHelper(context), manga.getUrl());
+        if(curManga != null) {
+            if (curManga.isFavourite())
+                btnFavorite.setBackgroundResource(R.drawable.ic_favorite_white_24dp);
+            else
+                btnFavorite.setBackgroundResource(R.drawable.ic_favorite_border_white_24dp);
+        }
         // done set info
         MangaDetail.showMangaInfo();
 
@@ -108,6 +123,8 @@ public class GetMangaDataTask extends AsyncTask<String, Void, Manga> {
         DownloadMangaThumbnailTask downloadThumbnailTask = new DownloadMangaThumbnailTask();
         downloadThumbnailTask.execute(manga.getMangaThumbnail());
 
+
+        //Event handlers for search
         txtSearchChapter.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -122,6 +139,21 @@ public class GetMangaDataTask extends AsyncTask<String, Void, Manga> {
             @Override
             public void afterTextChanged(Editable editable) {
                 cl.getFilter().filter(editable.toString());
+            }
+        });
+
+        //add/remove favorite manga
+        btnFavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                manga.setFavourite(!manga.isFavourite());
+                MangaTable.updateFavorite(DatabaseHelper.getHelper(context), manga);
+
+                new LoadAllMangaTask(context).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                if(manga.isFavourite())
+                    btnFavorite.setBackgroundResource(R.drawable.ic_favorite_white_24dp);
+                else
+                    btnFavorite.setBackgroundResource(R.drawable.ic_favorite_border_white_24dp);
             }
         });
     }

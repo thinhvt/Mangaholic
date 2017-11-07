@@ -64,8 +64,10 @@ public class ChapterList extends BaseAdapter implements Filterable, AdapterView.
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        Chapter curChapter = fChapterList.get(i);
+        int curChapterIndex = chapterList.indexOf(curChapter);
         Intent intent = new Intent(context, ViewManga.class);
-        intent.putExtra("indexChapter",i);
+        intent.putExtra("indexChapter", curChapterIndex);
         context.startActivity(intent);
     }
 

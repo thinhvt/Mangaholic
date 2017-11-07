@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -23,6 +24,7 @@ public class MangaDetail extends AppCompatActivity {
     public static ImageView thumbnail;
     public static Toolbar toolbar;
     public static EditText txtSearchChapter;
+    public static ImageButton btnFavorite;
 
     private static ProgressBar thumbnailPB;
     private static ProgressBar infoPB;
@@ -36,6 +38,7 @@ public class MangaDetail extends AppCompatActivity {
         txtTag.setVisibility(View.GONE);
         txtStatus.setVisibility(View.GONE);
         thumbnail.setVisibility(View.GONE);
+        btnFavorite.setVisibility(View.GONE);
 
         // show progress bar
         thumbnailPB.setVisibility(View.VISIBLE);
@@ -50,6 +53,7 @@ public class MangaDetail extends AppCompatActivity {
         txtAuthor.setVisibility(View.VISIBLE);
         txtTag.setVisibility(View.VISIBLE);
         txtStatus.setVisibility(View.VISIBLE);
+        btnFavorite.setVisibility(View.VISIBLE);
     }
 
     public static void showChapterList() {
@@ -76,6 +80,7 @@ public class MangaDetail extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar1);
         setSupportActionBar(toolbar);
         txtSearchChapter = (EditText) findViewById(R.id.search_chapter);
+        btnFavorite = (ImageButton)findViewById(R.id.btnFavorite);
     }
 
     @Override
