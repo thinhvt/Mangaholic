@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <TextView
+            android:text="Thông tin truyện"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/txtManga"
+            android:layout_marginBottom="10dp"
+            android:textSize="20sp" android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:textColor="#f44143"
+            android:paddingLeft="5dp"
+            android:background="#07000000"
+
+            />
+        <LinearLayout
+            android:background="#07000000"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="190dp" android:layout_marginTop="15dp">
+            <ProgressBar
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/thumbnail_progress_bar" android:layout_weight="0.5"/>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:srcCompat="@mipmap/ic_launcher" android:id="@+id/thumbnail"
+                android:layout_weight="0.5"/>
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" android:layout_weight="0.5">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="#07000000">
+                    <ProgressBar
+                        style="?android:attr/progressBarStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/manga_info_progress_bar"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:id="@+id/txtName"
+                        android:paddingBottom="5dp" android:paddingTop="5dp" android:paddingLeft="5dp"
+                        android:textSize="18sp"
+                        android:background="#07000000"
+                        android:textColor="@color/colorWhite"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:id="@+id/txtRating"
+                        android:paddingBottom="5dp" android:paddingTop="5dp" android:paddingLeft="5dp"
+                        android:textSize="18sp"
+                        android:background="#07000000"
+                        android:textColor="@color/colorWhite"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:id="@+id/txtAuthor"
+                        android:paddingBottom="5dp" android:paddingTop="5dp" android:paddingLeft="5dp"
+                        android:textSize="18sp"
+                        android:background="#07000000"
+                        android:textColor="@color/colorWhite"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:id="@+id/txtTag"
+                        android:paddingBottom="5dp" android:paddingTop="5dp" android:paddingLeft="5dp"
+                        android:textSize="18sp"
+                        android:background="#07000000"
+                        android:textColor="@color/colorWhite"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:id="@+id/txtStatus"
+                        android:paddingBottom="5dp" android:paddingTop="5dp" android:paddingLeft="5dp"
+                        android:textSize="18sp"
+                        android:background="#07000000"
+                        android:textColor="@color/colorWhite"/>
+                </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txtChapter"
+                android:layout_width="189dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_weight="1"
+                android:background="#07000000"
+                android:paddingBottom="5dp"
+                android:paddingLeft="5dp"
+                android:paddingTop="5dp"
+                android:text="Chap"
+                android:textColor="#f44143"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/search_chapter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="text"
+                android:hint="Tìm kiếm nhanh"
+                android:paddingBottom="5dp"
+                android:paddingLeft="5dp"
+                android:paddingTop="5dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="20dp"
+                android:textColor="#ffffff"/>
+        </LinearLayout>
+
+        <ProgressBar
+            style="?android:attr/progressBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/chapter_progress_bar"/>
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:id="@+id/chapter_list"
+            android:layout_marginLeft="10dp"
+            android:background="#07000000"/>
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

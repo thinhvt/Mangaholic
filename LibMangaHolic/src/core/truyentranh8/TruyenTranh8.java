@@ -6,19 +6,37 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import sun.awt.datatransfer.DataTransferer;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class TruyenTranh8 implements MangeGetter {
     private final static String MANGA_LIST_URL_FORMAT = "http://m.truyentranh8.net/all/page=%d";
     public final static String TRUYEN_TRANH_8_HOT = "http://m.truyentranh8.net/truyen_xem_nhieu/";
+    public final static String TRUYEN_TRANH_8_HOME = "http://m.truyentranh8.net";
 
     @Override
     public ArrayList getMangaList(InputStream is) {
-        return null;
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+        ArrayList<Manga> mangaList = new ArrayList<>();
+        String name, url;
+
+        try {
+            while ((name = reader.readLine()) != null) {
+                url = reader.readLine();
+                mangaList.add(new Manga(name, url));
+            }
+        } catch(IOException e) {
+            System.err.println("IOException while reading manga list");
+        }
+
+        return mangaList;
     }
 
     @Override
