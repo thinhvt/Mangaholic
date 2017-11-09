@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import assignment.mangaholic.R;
+import assignment.mangaholic.model.dbhelper.FileCache;
 import assignment.mangaholic.presenter.asynctasks.DownloadMangaImageTask;
 import assignment.mangaholic.presenter.eventhandlers.ChapterList;
 import assignment.mangaholic.presenter.eventhandlers.ImageList;
@@ -42,6 +43,9 @@ public class ViewManga extends AppCompatActivity {
         final ImageList imgList = new ImageList(this, new ArrayList<Bitmap>());
         imageList.setAdapter(imgList);
 
+        //implement cache
+        final FileCache fileCache = new FileCache(this);
+
         wb.getSettings().setJavaScriptEnabled(true);
         wb.getSettings().setDomStorageEnabled(true);
         wb.setWebViewClient(new WebViewClient(){
@@ -50,7 +54,7 @@ public class ViewManga extends AppCompatActivity {
                 super.onLoadResource(view, url);
                 if (url.contains("imgmax=0")) {
                     Log.i("IMAGE", url);
-                    DownloadMangaImageTask downloadMangaImageTask = new DownloadMangaImageTask(imgList);
+                    DownloadMangaImageTask downloadMangaImageTask = new DownloadMangaImageTask(imgList, fileCache);
                     downloadMangaImageTask.execute(url);
                 }
             }

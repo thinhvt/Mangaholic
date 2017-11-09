@@ -15,7 +15,6 @@ public class InsertAllMangasToDBTask extends AsyncTask<Manga, Void, Void> {
         this.context = context;
     }
 
-
     @Override
     protected Void doInBackground(Manga... mangas) {
         for(Manga m : mangas)
